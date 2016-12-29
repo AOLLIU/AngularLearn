@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" >
+    <aoliu></aoliu>
+
+    <!--下面是一段注释，注释必须遵守这个格式-->
+    <!-- directive:man -->
+    <div super class="flash"></div>
+</div>
+<script>
+
+    var app = angular.module('myApp',[]);
+
+    //Directive 可以让我们创建自定义的指令属性，它可以让用户把自定义的行为绑定在某个 DOM 元素上，或者可以把这个 DOM 元素或其子元素变型。在这里例子中，我们创建了一个自定义指令属性 aoliu。它的行为是返回的是一个 template，就是一个 html 代码段，把这个指令限制在"E",也就是元素。
+    app.directive("aoliu",function () {
+        return {
+
+            //Restrict 用来限制只有满足条件的才可以使用自定义的指令属性，也就是 Directive。一共可以用于以下的四类，E-元素，A-属性，C-样式类，M-注释。
+            restrict: "E",
+            template: "<div>This is my first Directive </div>"
+        }
+    })
+
+
+    //下面写了三个 directive，分别对应处理 link 后面对应的是处理函数
+
+    //super 是 div 的用户自定义属性
+    app.directive("super", function() {
+        return {
+            restrict: "A",
+            link: function() {
+                alert("I'm working stronger")
+            }
+        }
+    })
+
+    //flash 是一个样式类
+    app.directive("flash", function() {
+        return {
+            restrict: "C",
+            link: function() {
+                alert("I'm working faster")
+            }
+        }
+    })
+
+    app.directive("man", function() {
+        return {
+            restrict: "M",
+            link: function() {
+                alert("I'm comment")
+            }
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

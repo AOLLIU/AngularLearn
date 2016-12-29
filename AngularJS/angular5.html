@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+        .black {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<div ng-app="myApp" >
+    <div ng-controller="myFirstCtrl">
+        <ul>
+            <!--ng-class 可以用来标记某个 class 是否被应用，通常用来处理是否加载某个 css 样式。-->
+            <li ng-repeat="item in roommates" ng-class='{"black":isBlack ,"red":isRed}'>
+                {{item.name}}
+            </li>
+        </ul>
+
+        <!--ng-click 指令属性给 DOM 元素注册了一个点击事件的监听器。当此 DOM 元素上有点击事件发生（即当此 button 或 link 被点击时），AngularJS 就会执行表达式的内容，并相应地更新 view。ng-click 指令属性给 DOM 元素注册了一个点击事件的监听器。当此 DOM 元素上有点击事件发生（即当此 button 或 link 被点击时），AngularJS 就会执行表达式的内容，并相应地更新 view。-->
+        <button ng-click="changeColor()">Click Here</button>
+        <br>
+
+        <!--ng-init：它其实是在启动时运行的函数，让我们能够在程序运行前设定初始变量的值。如下例所示，我们初始化了 name 为"tester"字符串。-->
+        <b ng-init='name = "tester"'>Hello, {{ name }}</b>
+    </div>
+
+</div>
+<script>
+
+    var app = angular.module('myApp',[]);
+
+    app.controller('myFirstCtrl',function ($scope) {
+        $scope.isBlack = true;
+        $scope.isRed = false;
+        $scope.roommates = [
+            {name : "zhang san"},
+            {name : "li san"},
+            {name : "li si"},
+        ];
+
+        //可以用 ng-click 来调用在 controller 里写好并绑定在$scope 上的函数，
+        $scope.changeColor = function () {
+            $scope.isRed = !$scope.isRed;
+            $scope.isBlack = !$scope.isBlack;
+        }
+    })
+</script>
+
+</body>
+</html>

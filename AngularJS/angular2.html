@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" >
+    <div ng-controller="myFirstCtrl">
+        <input type="text" ng-model="data.message">
+        <h2>{{data.message}}</h2>
+    </div>
+    <div ng-controller="mySecondCtrl">
+        <input type="text" ng-model="data.message">
+        <h2>{{data.message}}</h2>
+    </div>
+
+</div>
+<script>
+    //    AngularJS 应用
+    //    AngularJS 模块（Module） 定义了 AngularJS 应用。
+    //    AngularJS 控制器（Controller） 用于控制 AngularJS 应用。
+    //    ng-app指令定义了应用, ng-controller 定义了控制器。
+
+    //AngularJS 模块
+    // 我们定义第一个 app 命名为"myApp",它其实就是一个 AngularJS 的模块。[] 代表这个定义的模块没有任何依赖模块。注意，在 HTML 中的名字需要跟 JavaScript 中定义的 app 的名字一致。
+
+    //有个这个 app,我们可以创建一个 factory 来提供我们需要的 service。在这个例子中，我们的 service 名字叫 Data,它返回了一个字符串"I am AOLIU"。
+    var app = angular.module('myApp',[]);
+
+    app.factory('Data',function () {
+
+        //创建一个 service 就是简单的返回一个函数，这个函数返回一个对象。这个对象是在创建应用实例的时候创建的（记住，这个对象是单例对象）。
+        //可以看到，两个 controller 之间是完全独立的，并没有 root controller 或者 controller 直接的继承关系，仅仅是把 service 和这个对象传入两个 controller 中。
+        return {message:"data from a service"}
+    })
+    function myFirstCtrl($scope,Data) {
+        $scope.data = Data
+    }
+    function mySecondCtrl($scope,Data) {
+        $scope.data = Data
+    }
+
+
+</script>
+</body>
+</html>

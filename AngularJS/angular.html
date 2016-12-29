@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--1.加入 AngularJS 引用-->
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body>
+    <!--在最外层的 div 中设置了一个 ng-app 属性(少了这个属性，AngularJS 就没办法工作)， 一般这个属性表明这个元素以及这个元素内部的所有元素都是属于设定的这个 app 的-->
+    <!--使用 ng-controller 这个属性替代例子中的 ng-model 属性。"myController"这个 controller 的作用域是当前 div 以及其所有子元素。-->
+    <div ng-app="myApp" ng-controller="myController">
+
+        <!--2.双向数据绑定-->
+        <!--AngularJS 指令-->
+        <!--正如所看到的，AngularJS 指令是以 ng 作为前缀的 HTML 属性。-->
+        名: <input type="text" ng-model="firstName"><br/>
+        姓: <input type="text" ng-model="lastName"><br/>
+        <br>
+
+        <!--3.AngularJS 表达式-->
+        <!--AngularJS 表达式写在双大括号内：{{ expression }}。-->
+        姓名:{{firstName + lastName}}
+        <br>
+        <h1>{{data.message + " world"}}</h1>
+    </div>
+<script>
+
+    //    4.controller 和$scope 的使用
+    //    AngularJS 应用
+    //    AngularJS 模块（Module） 定义了 AngularJS 应用。
+    //    AngularJS 控制器（Controller） 用于控制 AngularJS 应用。
+    //    ng-app指令定义了应用, ng-controller 定义了控制器。
+
+    //AngularJS 模块
+    var app = angular.module('myApp',[]);
+
+    //AngularJS 控制器控制应用:
+    //这个$scope 关联于当前 div 元素及其所有子元素
+    app.controller('myController',function ($scope) {
+
+        //我们可以在有 ng-controller= myController 属性的 DOM 元素的任何子元素里访问这个 data 对象，因为它在$scope 上。
+        $scope.data = {message:"Hello"}
+
+        //$scope 实际上就是一个 JavaScript 对象，controller 和 view 都可以访问它，所以我们能利用它在两者间传递信息。在这个$scope 对象里，我们既存储数据，又存储将要运行在 view 上的函数。
+        $scope.firstName = "wei"
+        $scope.lastName = "liu"
+
+    })
+</script>
+</body>
+</html>
